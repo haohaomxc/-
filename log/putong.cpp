@@ -37,23 +37,7 @@ void putong::on_pushButton_chaxun_clicked()
 }
 
 
-putong::putong(QWidget *parent, QString zhanghao) :
-    QWidget(parent),
-    ui(new Ui::putong)
-{
-    ui->setupUi(this);
-    setWindowTitle(zhanghao);
 
-    graphicsView = new QGraphicsView(this);
-    graphicsScene = new QGraphicsScene();
-    graphicsView->setScene(graphicsScene);
-
-    graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded); // 根据需要显示水平滚动条
-    graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); // 根据需要显示垂直滚动条
-    // 初始化甘特图相关的槽函数触发事件
-    connect(ui->tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &putong::updateGanttChart);
-}
 
 void putong::on_pushButton_shengcheng_clicked()
 {
@@ -75,14 +59,40 @@ void putong::updateGanttChart()
 {
     graphicsScene->clear();
 
-     QModelIndexList selectedRows = ui->tableView->selectionModel()->selectedRows();
-    for (const QModelIndex& index : selectedRows) {
+    // Fix: No Data Here
+    // QModelIndexList selectedRows = ui->tableView->selectionModel()->selectedRows();
+    QModelIndexList selectedRows = ui->tableView->selectionModel()->selectedIndexes();
+
+
+    // for (const QModelIndex& index : selectedRows) {
+
+    // Fix: Need More
+    for (int i=0;i < 4;i++){
+
+
+        //4.23
         // 获取表格中的数据
-        QVariant startTimeVariant = model->data(index.sibling(index.row(), 0));
-        QVariant endTimeVariant = model->data(index.sibling(index.row(), 1));
-        QString task = model->data(index.sibling(index.row(), 2)).toString();
-        QString tool = model->data(index.sibling(index.row(), 3)).toString();
-        QString note = model->data(index.sibling(index.row(), 4)).toString();
+     //   QVariant startTimeVariant = model->data(model->index(i, 0));
+        // QVariant endTimeVariant = model->data(model->index(i, 1));
+      //  QString task = model->data(model->index(i, 1)).toString();
+       // QString tool = model->data(model->index(i, 2)).toString();
+       // QString note = model->data(model->index(i, 3)).toString();
+
+        // 获取表格中的数据
+              QVariant startTimeVariant = model->data(model->index(i, 0));
+              QVariant endTimeVariant = model->data(model->index(i, 1));
+              QString task = model->data(model->index(i, 2)).toString();
+              QString tool = model->data(model->index(i, 3)).toString();
+              QString note = model->data(model->index(i, 4)).toString();
+
+
+
+        // 获取表格中的数据
+//        QVariant startTimeVariant = model->data(index.sibling(index.row(), 0));
+//        QVariant endTimeVariant = model->data(index.sibling(index.row(), 1));
+//        QString task = model->data(index.sibling(index.row(), 2)).toString();
+//        QString tool = model->data(index.sibling(index.row(), 3)).toString();
+//        QString note = model->data(index.sibling(index.row(), 4)).toString();
 
         // 解析时间区间
         bool ok;
@@ -90,7 +100,11 @@ void putong::updateGanttChart()
         QStringList timeRangeStart = startTimeVariant.toString().split("-");
         startH = timeRangeStart[0].mid(0, 2).toInt(&ok, 10);
         startM = timeRangeStart[0].mid(3, 2).toInt(&ok, 10);
-        QStringList timeRangeEnd = endTimeVariant.toString().split("-");
+
+        // QStringList timeRangeEnd = endTimeVariant.toString().split("-");
+        QStringList timeRangeEnd = startTimeVariant.toString().split("-");
+
+
         endH = timeRangeEnd[1].mid(0, 2).toInt(&ok, 10);
         endM = timeRangeEnd[1].mid(3, 2).toInt(&ok, 10);
 
@@ -116,8 +130,38 @@ void putong::updateGanttChart()
         graphicsScene->addItem(bar);
         graphicsScene->addItem(taskLabel);
         // 重新调整场景大小以适应所有条形图并触发滚动条（如果场景内容超出视图）
-        graphicsScene->setSceneRect(0, 0, graphicsView->width(), graphicsView->height());
-        graphicsScene->invalidate(graphicsScene->sceneRect()); // 更新整个场景区域
+        graphicsScene->setSceneRect(0, 0, ui->graphicsView->width(), ui->graphicsView->height());
+
+        // graphicsScene->invalidate(graphicsScene->sceneRect()); // 更新整个场景区域
     }
+
+    // just for test
+//    QBrush greenbrush(Qt::green);
+//    QBrush bluebrush(Qt::blue);
+//    QPen outlinePen(Qt::black);
+//    graphicsScene->addEllipse(0, 0, 300, 60, outlinePen, greenbrush);
 }
 
+putong::putong(QWidget *parent, QString zhanghao) :
+    QWidget(parent),
+    ui(new Ui::putong)
+{
+    ui->setupUi(this);
+    setWindowTitle(zhanghao);
+
+    // Update Here
+//    graphicsView = new QGraphicsView(this);
+//    graphicsScene = new QGraphicsScene();
+//    graphicsView->setScene(graphicsScene);
+    graphicsScene = new QGraphicsScene(this);
+    ui->graphicsView->setScene(graphicsScene);
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded); // 根据需要显示水平滚动条
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); // 根据需要显示垂直滚动条
+
+    // Update Here:
+    tableView = new QTableView();
+
+    // 初始化甘特图相关的槽函数触发事件
+    connect(ui->tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+            this, &putong::updateGanttChart);
+}

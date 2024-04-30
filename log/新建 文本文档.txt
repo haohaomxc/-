@@ -1,0 +1,70 @@
+#include "show.h"
+#include "ui_show.h"
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlError>
+#include <QSqlQuery>
+#include <QMessageBox>
+#include <QDebug>
+#include <QVariantList>//
+#include "canttchartview.h"
+#include "cantttimebaritem.h"
+
+Show::Show(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::Show)
+{
+    ui->setupUi(this);
+
+    CanttChartView *view = new CanttChartView(this);
+    
+//lianjie
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+            db.setHostName("127.0.0.1");  //连接本地主机
+            db.setPort(3306);
+            db.setDatabaseName("xinxi");
+            db.setUserName("root");
+            db.setPassword("1330099414qwe");
+            bool ok = db.open();
+            if (ok){
+                QMessageBox::information(this, "infor", "link success");
+            }
+            else {
+                QMessageBox::information(this, "infor", "link failed");
+                qDebug()<<"error open database because"<<db.lastError().text();
+            }
+    // 设置图表范围
+    view->setAxisRange(QDateTime::fromString("2024-04-16 00:00", "yyyy-MM-dd HH:mm"),
+                           QDateTime::fromString("2024-04-17 00:00", "yyyy-MM-dd HH:mm"),
+                           QStringList() << "J-20240121" << "J-20240122" << "J-20240123");
+
+    // 添加计划时间栏并添加事件
+    CanttTimeBarItem *item = view->addPlanTimeBar("J-20240121",
+                             QDateTime::fromString("2024-04-16 03:00", "yyyy-MM-dd HH:mm"),
+                             QDateTime::fromString("2024-04-16 12:00", "yyyy-MM-dd HH:mm"));
+    item->addEvent(QDateTime::fromString("2024-04-16 05:00", "yyyy-MM-dd HH:mm"), CanttTimeBarItem::AnshiEvent);
+
+//   view->addRealTimeBar("J-20240121",
+//                        QDateTime::fromString("2024-04-16 01:00", "yyyy-MM-dd HH:mm"),
+//                        QDateTime::fromString("2024-04-16 13:00", "yyyy-MM-dd HH:mm"));
+        view->addPlanTimeBar("J-20240122",
+                             QDateTime::fromString("2024-04-16 03:00", "yyyy-MM-dd HH:mm"),
+                             QDateTime::fromString("2024-04-16 18:00", "yyyy-MM-dd HH:mm"));
+//        view->addRealTimeBar("J-20240122",
+//                             QDateTime::fromString("2024-04-16 05:00", "yyyy-MM-dd HH:mm"),
+//                             QDateTime::fromString("2024-04-16 19:00", "yyyy-MM-dd HH:mm"));
+        view->addPlanTimeBar("J-20240123",
+                             QDateTime::fromString("2024-04-16 00:00", "yyyy-MM-dd HH:mm"),
+                             QDateTime::fromString("2024-04-16 16:22", "yyyy-MM-dd HH:mm"));
+//        view->addRealTimeBar("J-20240123",
+//                             QDateTime::fromString("2024-04-16 02:33", "yyyy-MM-dd HH:mm"),
+//                             QDateTime::fromString("2024-04-16 18:45", "yyyy-MM-dd HH:mm"));
+
+    // 将CanttChartView设置为Show类的中央部件
+    setCentralWidget(view);
+    showMaximized();
+}
+
+Show::~Show()
+{
+    delete ui;
+}

@@ -36,6 +36,7 @@ private slots:
     void on_pushButton_chaxun_clicked(); // 新增槽函数声明
     void on_pushButton_tuichu_clicked();
     void on_pushButton_shengcheng_clicked();
+    void on_pushButton_tiao_clicked();
 };
 
 #endif // PUTONG_H

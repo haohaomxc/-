@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/window/bottom-background.png</file>
+        <file>img/button/bottom-arrow.png</file>
+        <file>img/button/left-arrow.png</file>
+        <file>img/button/right-arrow.png</file>
+        <file>img/button/top-arrow.png</file>
+        <file>img/plane/plane-red.png</file>
+        <file>img/plane/plane-white.png</file>
+        <file>img/button/add-datatype.png</file>
+        <file>img/button/load.png</file>
+        <file>img/checkbox/timebar-hide.png</file>
+        <file>img/checkbox/timebar-show.png</file>
+        <file>img/event/land.png</file>
+        <file>img/event/switchchannel.png</file>
+        <file>img/event/takeoff.png</file>
+    </qresource>
+</RCC>

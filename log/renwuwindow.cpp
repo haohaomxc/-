@@ -208,7 +208,7 @@ void RenwuWindow::loadTableToTableView(const QString &tableName)
     modell->clear();
 
     // 设置查询语句
-    modell->setQuery(QString("SELECT 时间, 地点, 任务, 工具, 备注 FROM %1").arg(tableName));
+    modell->setQuery(QString("SELECT 时间, 地点, taskId, 工具, 备注, 预期 FROM %1").arg(tableName));
 
     // 设置表头数据
     modell->setHeaderData(0, Qt::Horizontal, tr("时间"));
@@ -216,6 +216,7 @@ void RenwuWindow::loadTableToTableView(const QString &tableName)
     modell->setHeaderData(2, Qt::Horizontal, tr("任务"));
     modell->setHeaderData(3, Qt::Horizontal, tr("工具"));
     modell->setHeaderData(4, Qt::Horizontal, tr("备注"));
+    modell->setHeaderData(5, Qt::Horizontal, tr("预期"));
 
     // 设置模型到tableView
     ui->tableView->setModel(modell);
@@ -236,6 +237,7 @@ bool RenwuWindow::createNewTable(const QString &tableName)
         "任务 VARCHAR(255) NOT NULL, "
         "工具 VARCHAR(255) NOT NULL, "
         "备注 VARCHAR(255) NOT NULL);"
+        "预期 VARCHAR(255) NOT NULL);"
     ).arg(tableName);
 
     // 执行SQL语句
@@ -258,6 +260,7 @@ void RenwuWindow::findRenwu()
     modell->setHeaderData(2, Qt::Horizontal, tr("任务"));
     modell->setHeaderData(3, Qt::Horizontal, tr("工具"));
     modell->setHeaderData(4, Qt::Horizontal, tr("备注"));
+    modell->setHeaderData(5, Qt::Horizontal, tr("预期"));
 
     // 将数据模型设置到tableView
     ui->tableView->setModel(modell);
@@ -290,10 +293,11 @@ void RenwuWindow::on_pushButton_tianjia_clicked()
         QString taskStr = ui->lineEdit_renwu->text();
         QString toolStr = ui->lineEdit_gongju->text();
         QString noteStr = ui->lineEdit_beizhu->text();
+        QString expStr = ui->lineEdit_yuqi->text();
 
         // 直接执行插入操作，不检查表是否存在
         // 注意：在实际项目中，建议在插入前验证表结构，否则可能会因为表结构不匹配而导致插入失败
-        QString insertQuery = "INSERT INTO " + tableName + " (时间, 地点, 任务, 工具, 备注) VALUES (?, ?, ?, ?, ?)";
+        QString insertQuery = "INSERT INTO " + tableName + " (时间, 地点, 任务, 工具, 备注, 预期) VALUES (?, ?, ?, ?, ?, ?)";
         QSqlQuery query;
 
         // 准备并执行SQL语句，绑定参数
@@ -303,6 +307,7 @@ void RenwuWindow::on_pushButton_tianjia_clicked()
         query.bindValue(2, taskStr);
         query.bindValue(3, toolStr);
         query.bindValue(4, noteStr);
+        query.bindValue(5, expStr);
 
         if (!query.exec()) {
             QMessageBox::critical(this, "错误", QStringLiteral("插入数据失败: %1").arg(query.lastError().text()));
@@ -315,5 +320,6 @@ void RenwuWindow::on_pushButton_tianjia_clicked()
         ui->lineEdit_renwu->clear();
         ui->lineEdit_gongju->clear();
         ui->lineEdit_beizhu->clear();
+        ui->lineEdit_yuqi->clear();
 }
 

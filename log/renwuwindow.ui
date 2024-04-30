@@ -58,7 +58,7 @@
     <property name="geometry">
      <rect>
       <x>620</x>
-      <y>290</y>
+      <y>300</y>
       <width>151</width>
       <height>41</height>
      </rect>
@@ -97,9 +97,9 @@
    <widget class="QSlider" name="hourSlider">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>400</y>
-      <width>181</width>
+      <width>191</width>
       <height>22</height>
      </rect>
     </property>
@@ -135,9 +135,9 @@ QSlider::handle:horizontal {
    <widget class="QSlider" name="minuteSlider">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>440</y>
-      <width>181</width>
+      <width>191</width>
       <height>22</height>
      </rect>
     </property>
@@ -173,16 +173,16 @@ QSlider::handle:horizontal {
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>31</x>
-      <y>485</y>
-      <width>71</width>
-      <height>20</height>
+      <x>10</x>
+      <y>489</y>
+      <width>41</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>得意黑</family>
-      <pointsize>11</pointsize>
+      <pointsize>12</pointsize>
       <italic>true</italic>
      </font>
     </property>
@@ -193,9 +193,9 @@ QSlider::handle:horizontal {
    <widget class="QLineEdit" name="lineEdit_shijian">
     <property name="geometry">
      <rect>
-      <x>72</x>
-      <y>480</y>
-      <width>221</width>
+      <x>50</x>
+      <y>490</y>
+      <width>141</width>
       <height>31</height>
      </rect>
     </property>
@@ -215,7 +215,7 @@ QSlider::handle:horizontal {
        <property name="font">
         <font>
          <family>得意黑</family>
-         <pointsize>11</pointsize>
+         <pointsize>12</pointsize>
          <italic>true</italic>
         </font>
        </property>
@@ -244,7 +244,7 @@ QSlider::handle:horizontal {
        <property name="font">
         <font>
          <family>得意黑</family>
-         <pointsize>11</pointsize>
+         <pointsize>12</pointsize>
          <italic>true</italic>
         </font>
        </property>
@@ -273,7 +273,7 @@ QSlider::handle:horizontal {
        <property name="font">
         <font>
          <family>得意黑</family>
-         <pointsize>11</pointsize>
+         <pointsize>12</pointsize>
          <italic>true</italic>
         </font>
        </property>
@@ -302,7 +302,7 @@ QSlider::handle:horizontal {
        <property name="font">
         <font>
          <family>得意黑</family>
-         <pointsize>11</pointsize>
+         <pointsize>12</pointsize>
          <italic>true</italic>
         </font>
        </property>
@@ -341,7 +341,7 @@ QSlider::handle:horizontal {
      <rect>
       <x>230</x>
       <y>400</y>
-      <width>181</width>
+      <width>191</width>
       <height>22</height>
      </rect>
     </property>
@@ -379,8 +379,8 @@ QSlider::handle:horizontal {
      <rect>
       <x>230</x>
       <y>440</y>
-      <width>181</width>
-      <height>22</height>
+      <width>191</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -410,6 +410,36 @@ QSlider::handle:horizontal {
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_yuqi">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>490</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>490</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>得意黑</family>
+      <pointsize>12</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="text">
+     <string>预  期</string>
     </property>
    </widget>
   </widget>

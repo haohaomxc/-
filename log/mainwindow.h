@@ -24,7 +24,6 @@ public:
 public:
     static QSqlDatabase db;
 
-
       QString yzm ;
       QTimer *yan =  new QTimer(this);
 

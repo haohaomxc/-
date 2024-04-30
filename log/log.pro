@@ -16,26 +16,36 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    canttchartscene.cpp \
+    canttchartview.cpp \
+    cantttimebaritem.cpp \
     guanliwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     manager.cpp \
     putong.cpp \
-    renwuwindow.cpp
+    renwuwindow.cpp \
+    show.cpp
 
 HEADERS += \
+    canttchartscene.h \
+    canttchartview.h \
+    cantttimebaritem.h \
+    definition.h \
     guanliwindow.h \
     mainwindow.h \
     manager.h \
     putong.h \
-    renwuwindow.h
+    renwuwindow.h \
+    show.h
 
 FORMS += \
     guanliwindow.ui \
     mainwindow.ui \
     manager.ui \
     putong.ui \
-    renwuwindow.ui
+    renwuwindow.ui \
+    show.ui
 
 TRANSLATIONS += \
     log_zh_CN.ts
@@ -48,4 +58,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    img.qrc \
     resources.qrc

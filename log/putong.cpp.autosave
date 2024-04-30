@@ -164,6 +164,6 @@ putong::putong(QWidget *parent, QString zhanghao) :
 
 void putong::on_pushButton_tiao_clicked()
 {
-    Show *showWindow = new Show(this); // 注意首字母大写，因为类名通常是大写的
+    Show *showWindow = new Show(this); 
     showWindow->show();
 }

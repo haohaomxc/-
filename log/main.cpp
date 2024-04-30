@@ -10,11 +10,17 @@
 
 int main(int argc, char *argv[])
 {
+     // 启用高DPI支持
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     //查看有哪些可用数据库
     QStringList type=QSqlDatabase::drivers();
     qDebug()<<type;
     QApplication a(argc, argv);
     // 如果QSS文件已经被添加到资源文件中
+    // 启用高DPI支持
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     QFile styleSheet("D:/qtproject/1.1.1/log/res/qss/style.qss");
     if (styleSheet.open(QFile::ReadOnly))
     {
@@ -32,5 +38,6 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
     return a.exec();
+
 }
 

@@ -12,6 +12,8 @@
 #include "manager.h"
 #include "putong.h"
 
+
+QSqlDatabase MainWindow::db;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -33,29 +35,22 @@ MainWindow::MainWindow(QWidget *parent)
 //        qDebug()<<"成功";
 
 
-//第二种
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-        db.setHostName("127.0.0.1");  //连接本地主机
-        db.setPort(3306);
-        db.setDatabaseName("xinxi");
-        db.setUserName("root");
-        db.setPassword("1330099414qwe");
-        bool ok = db.open();
-        if (ok){
-            QMessageBox::information(this, "infor", "link success");
-        }
-        else {
-            QMessageBox::information(this, "infor", "link failed");
-            qDebug()<<"error open database because"<<db.lastError().text();
-}
+    // 初始化数据库连接
+    MainWindow::db = QSqlDatabase::addDatabase("QMYSQL");
+    MainWindow::db.setHostName("127.0.0.1");
+    MainWindow::db.setPort(3306);
+    MainWindow::db.setDatabaseName("xinxi");
+    MainWindow::db.setUserName("root");
+    MainWindow::db.setPassword("1330099414qwe");
 
-
-
-
-
-
-
-
+    bool ok = MainWindow::db.open();
+    if (ok){
+        QMessageBox::information(this, "infor", "link success");
+    }
+    else {
+        QMessageBox::information(this, "infor", "link failed");
+        qDebug()<<"error open database because"<<MainWindow::db.lastError().text();
+    }
 
 
 //设置定时器，目的是在验证码输入错误后出发更新验证码 [34-43]
@@ -176,8 +171,20 @@ MainWindow::MainWindow(QWidget *parent)
     });
 }
 
+//MainWindow::~MainWindow()
+//{
+//    delete ui;
+//}
+
+
+//加入了关闭数据库连接的代码
 MainWindow::~MainWindow()
 {
+    // 不需要检查是否打开，直接关闭并移除
+    if (MainWindow::db.isValid()) {
+        MainWindow::db.close();
+        QSqlDatabase::removeDatabase(MainWindow::db.connectionName());
+    }
     delete ui;
 }
 
